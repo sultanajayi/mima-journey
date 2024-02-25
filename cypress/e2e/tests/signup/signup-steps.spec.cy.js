@@ -20,61 +20,68 @@ When(/^User fills in a valid full name$/, () => {
 });
 
 When(/^User fills in a valid business name$/, () => {
-	cy.log('Hafsat', 'Yusuff')
+	cy.typeAValue(sel.basicDetailsPage.bizNameField, faker.company.buzzNoun())
 });
 
 When(/^User fills in a valid business email$/, () => {
-	cy.log('Gambo', 'Usman')
+	cy.typeAValue(sel.basicDetailsPage.bizEmailField, 'shayken21@yopmail.com')
 });
 
 When(/^User fills in a valid phone number$/, () => {
-	cy.log('Ruth', 'Nyem')
+	cy.typeAValue(sel.basicDetailsPage.bizPhoneNum, faker.phone.number('+23480########'))
 });
 
 When(/^User fills in a valid business registration number$/, () => {
-	cy.log('Segun', 'Durojaiye')
+	cy.typeAValue(sel.basicDetailsPage.bizRegNum, faker.commerce.isbn())
 });
 
 When(/^User Clicks the Next Button$/, () => {
-	cy.log('Salman', 'Muhammad')
+	cy.clickElement(sel.basicDetailsPage.nextBtn)
 });
 
 When(/^User fills in a valid website name$/, () => {
-	cy.log('Femi', 'Omeiza')
+	cy.typeAValue(sel.otherDetailsPage.WebField, faker.internet.domainName())
 });
 
 When(/^User fills in a valid instagram handle$/, () => {
-	cy.log('Lukman', 'Olabanjo')
+	cy.typeAValue(sel.otherDetailsPage.InsField, faker.company.buzzVerb())
 });
 
 When(/^User fills in a valid twitter handle$/, () => {
-	return true;
+	cy.typeAValue(sel.otherDetailsPage.TwtField, faker.company.buzzNoun())
 });
 
 When(/^User selects how they heard about mima$/, () => {
-	return true;
+	cy.clickElement(sel.otherDetailsPage.heardAboutUs)
+	cy.clickElement(sel.otherDetailsPage.InsOption)
 });
 
 When(/^User inserts password$/, () => {
-	return true;
+	cy.typeAValue(sel.otherDetailsPage.passwordField, faker.internet.password())
 });
 
 When(/^User clicks the SignUp Button$/, () => {
-	return true;
+	cy.clickElement(sel.otpPage.submitButton)
 });
 
 Then(/^User sees token notification message$/, () => {
-	return true;
+  cy.get(sel.otpPage.otpMessage).invoke('text').then((message) => {
+      expect(message).to.contain('To make sure we’ve got your details right,we’ve sent a 5 digit code to your registered email')
+      cy.log(message)
+  })
 });
 
 Then(/^User retrieves token from email$/, () => {
-	return true;
+  cy.log('This step is not implemented yet')
+	// cy.clickElement(sel.signUpPage.signupButton)
 });
 
 When(/^User inserts token on the token page$/, () => {
-	return true;
+  cy.log('This step is not implemented yet')
+	// cy.typeAValue(sel.basicDetailsPage.fullnameField, faker.person.fullName())
 });
 
 Then(/^The user should have access to the home page$/, () => {
-	return true;
+  cy.log('This step is not implemented yet')
+	// cy.typeAValue(sel.basicDetailsPage.fullnameField, faker.person.fullName())
 });
