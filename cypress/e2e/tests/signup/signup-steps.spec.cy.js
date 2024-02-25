@@ -32,12 +32,8 @@ When(/^User fills in a valid business name$/, () => {
 
 When(/^User fills in a valid business email$/, () => {
 	// create an email address with mailslurp
-  cy.mailslurp().then(sultan => sultan.createInbox())
-  .then(inbox =>{
-    inboxId = inbox.id
-    emailAddress = inbox.emailAddress
-    cy.typeAValue(sel.basicDetailsPage.bizEmailField, emailAddress)
-  })
+  cy.insertEmail()
+
 });
 
 When(/^User fills in a valid phone number$/, () => {
@@ -86,21 +82,12 @@ Then(/^User sees token notification message$/, () => {
 
 Then(/^User retrieves token from email$/, () => {
 	// retrieve token from the email
-  cy.mailslurp().then(sultan => sultan.waitForLatestEmail(inboxId, 30000, true))
-  .then(email =>{
-    emailBody = email.body
-    const extractor = new DOMParser()
-    const doc  = extractor.parseFromString(emailBody,"text/html")
-    const number = doc.querySelector('tr:nth-of-type(2) > td > table td > p:nth-of-type(3) > strong').textContent
-    otpValue = number.trim()
-  })
+  cy.retrieveToken()
 });
 
 When(/^User inserts token on the token page$/, () => {
 	// insert the OTP
-  cy.get('input').should('be.visible').each(($el, index)=>{
-    cy.wrap($el).fill(otpValue[index])
-  })
+  cy.insertOTP()
 });
 
 Then(/^The user should have access to the home page$/, () => {
