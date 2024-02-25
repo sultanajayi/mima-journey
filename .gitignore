@@ -5,3 +5,4 @@ dist/
 .idea/
 cypress/videos/
 cypress/screenshots/
+cypress.env.json

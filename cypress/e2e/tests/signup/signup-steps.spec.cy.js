@@ -1,6 +1,13 @@
-import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
+import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor"
 import {faker} from '@faker-js/faker'
+
 let sel
+
+let inboxId
+let emailAddress
+let emailBody
+let otpValue
+
 before(function () {
   cy.fixture('selectors').then((data) => {
     sel = data
@@ -24,7 +31,13 @@ When(/^User fills in a valid business name$/, () => {
 });
 
 When(/^User fills in a valid business email$/, () => {
-	cy.typeAValue(sel.basicDetailsPage.bizEmailField, 'shayken21@yopmail.com')
+	// create an email address with mailslurp
+  cy.mailslurp().then(sultan => sultan.createInbox())
+  .then(inbox =>{
+    inboxId = inbox.id
+    emailAddress = inbox.emailAddress
+    cy.typeAValue(sel.basicDetailsPage.bizEmailField, emailAddress)
+  })
 });
 
 When(/^User fills in a valid phone number$/, () => {
@@ -72,16 +85,26 @@ Then(/^User sees token notification message$/, () => {
 });
 
 Then(/^User retrieves token from email$/, () => {
-  cy.log('This step is not implemented yet')
-	// cy.clickElement(sel.signUpPage.signupButton)
+	// retrieve token from the email
+  cy.mailslurp().then(sultan => sultan.waitForLatestEmail(inboxId, 30000, true))
+  .then(email =>{
+    emailBody = email.body
+    const extractor = new DOMParser()
+    const doc  = extractor.parseFromString(emailBody,"text/html")
+    const number = doc.querySelector('tr:nth-of-type(2) > td > table td > p:nth-of-type(3) > strong').textContent
+    otpValue = number.trim()
+  })
 });
 
 When(/^User inserts token on the token page$/, () => {
-  cy.log('This step is not implemented yet')
-	// cy.typeAValue(sel.basicDetailsPage.fullnameField, faker.person.fullName())
+	// insert the OTP
+  cy.get('input').should('be.visible').each(($el, index)=>{
+    cy.wrap($el).fill(otpValue[index])
+  })
 });
 
 Then(/^The user should have access to the home page$/, () => {
-  cy.log('This step is not implemented yet')
-	// cy.typeAValue(sel.basicDetailsPage.fullnameField, faker.person.fullName())
+	// Verify Page access is successful
+  cy.url().should("include", "home")
+  cy.get('.Sidebar_sb_nav_ul__SIy2E > li:nth-of-type(1)').should('contain', 'Home')
 });
