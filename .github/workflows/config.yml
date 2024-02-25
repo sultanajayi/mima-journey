@@ -4,15 +4,17 @@ on: [push]
 
 jobs:
   cypress-run:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
       - name: Cypress run
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v5.1.0
         with:
           node-version: 18
       
-      - run: API_KEY=${{ secrets.CYPRESS_MAILSLURP_API_KEY }}    
+      - run: API_KEY=${{ secrets.CYPRESS_MAILSLURP_API_KEY }}  
+      - run: npm ci
+      - run: npx cypress run --browser chrome  
