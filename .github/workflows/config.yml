@@ -12,8 +12,10 @@ jobs:
       # and run all Cypress tests
       - name: Cypress run
         uses: cypress-io/github-action@v6
-        with:
+        env:
           # use secret
-          api_key: ${{ secrets.CYPRESS_MAILSLURP_API_KEY }}
+          CYPRESS_MAILSLURP_API_KEY: ${{ secrets.CYPRESS_MAILSLURP_API_KEY }}
+
+        with:
           node-version: 18
        
