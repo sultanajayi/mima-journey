@@ -5,17 +5,20 @@ on: [push]
 jobs:
   cypress-run:
     runs-on: ubuntu-22.04
-    steps:    
-      - name: Checkout
-        uses: actions/checkout@v4
-      # Install NPM dependencies, cache them correctly
-      # and run all Cypress tests
-      - name: Cypress run
-        uses: cypress-io/github-action@v6
-        env:
-          # use secret
-          CYPRESS_MAILSLURP_API_KEY: ${{ secrets.CYPRESS_MAILSLURP_API_KEY }}
-
-        with:
-          node-version: 18
+    steps:   
+    - name: Setup Browserstack Config
+      uses: browserstack/github-actions/setup-env@master
+      with:
+        username: ${{secrets.BROWSERSTACK_USERNAME}}
+        access-key: ${{secrets.BROWSERSTACK_ACCESS_KEY}}  
+    - name: Checkout
+      uses: actions/checkout@v4
+    # Install NPM dependencies, cache them correctly
+    # and run all Cypress tests
+    - name: Cypress run
+      uses: cypress-io/github-action@v6
+      env:
+        # use secret
+        CYPRESS_MAILSLURP_API_KEY: ${{ secrets.CYPRESS_MAILSLURP_API_KEY }} 
+    - run: npx browserstack-cypress run     
        
