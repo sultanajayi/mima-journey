@@ -1,0 +1,44 @@
+{
+    "browsers": [
+        {
+            "browser": "chrome",
+            "os": "Windows 11",
+            "versions": [
+                "latest"
+            ]
+        },
+        {
+            "browser": "chrome",
+            "os": "OS X Ventura",
+            "versions": [
+                "latest"
+            ]
+        }
+    ],
+    "run_settings": {
+        "cypress_config_file": "./cypress.config.js",
+        "project_name": "mimatraining",
+        "build_name": "mimatraining",
+        "exclude": [],
+        "parallels": "3",
+        "system_env_vars": ["CYPRESS_MAILSLURP_API_KEY"],
+        "npm_dependencies": {
+            "@badeball/cypress-cucumber-preprocessor": "^20.0.1",
+            "@cypress/browserify-preprocessor": "^3.0.2",
+            "@faker-js/faker": "^8.4.1",
+            "cypress": "^13.6.6",
+            "cypress-fill-command": "^1.0.2",
+            "cypress-mailslurp": "^1.9.0",
+            "browserstack-cypress-cli": "1.29.0"
+        },
+        "package_config_options": {},
+        "headless": true
+    },
+    "connection_settings": {
+        "local": false,
+        "local_identifier": null,
+        "local_mode": null,
+        "local_config_file": null
+    },
+    "disable_usage_reporting": false
+}

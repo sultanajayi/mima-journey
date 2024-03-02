@@ -18,36 +18,6 @@ Given(/^User is on trymima page$/, () => {
 	cy.visit('/')
 });
 
-When(/^User Clicks Sign Up Button$/, () => {
-	cy.clickElement(sel.signUpPage.signupButton)
-});
-
-When(/^User fills in a valid full name$/, () => {
-	cy.typeAValue(sel.basicDetailsPage.fullnameField, faker.person.fullName())
-});
-
-When(/^User fills in a valid business name$/, () => {
-	cy.typeAValue(sel.basicDetailsPage.bizNameField, faker.company.buzzNoun())
-});
-
-When(/^User fills in a valid business email$/, () => {
-	// create an email address with mailslurp
-  cy.insertEmail()
-
-});
-
-When(/^User fills in a valid phone number$/, () => {
-	cy.typeAValue(sel.basicDetailsPage.bizPhoneNum, faker.phone.number('+23480########'))
-});
-
-When(/^User fills in a valid business registration number$/, () => {
-	cy.typeAValue(sel.basicDetailsPage.bizRegNum, faker.commerce.isbn())
-});
-
-When(/^User Clicks the Next Button$/, () => {
-	cy.clickElement(sel.basicDetailsPage.nextBtn)
-});
-
 When(/^User fills in a valid website name$/, () => {
 	cy.typeAValue(sel.otherDetailsPage.WebField, faker.internet.domainName())
 });
@@ -95,3 +65,16 @@ Then(/^The user should have access to the home page$/, () => {
   cy.url().should("include", "home")
   cy.get('.Sidebar_sb_nav_ul__SIy2E > li:nth-of-type(1)').should('contain', 'Home')
 });
+
+
+When(/^User fills in a "([^"]*)"$/, (args1) => {
+	cy.log(args1);
+	cy.insert(args1);
+});
+
+
+When(/^User Clicks "([^"]*)" Button$/, (args1) => {
+	cy.log(args1);
+	cy.clickElement(args1)
+});
+
