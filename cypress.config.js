@@ -17,9 +17,6 @@ module.exports = defineConfig({
     viewportHeight: 980,
     viewportWidth: 1020,
     specPattern:  '**/*.feature',
-    env: {
-          "MAILSLURP_API_KEY": "faac19f993905eb1cfbb0c214be792a8d52613fccb37b1ad612bbb5096b72313"
-    },
     setupNodeEvents,
   },
 });
