@@ -17,6 +17,8 @@
   "TwtField": "#twitterHandle",
   "heardAboutUs": "[class='sc-cPiKLX iafYdr']",
   "InsOption": "div#scrollableDiv > div:nth-of-type(3)",
+  "FbOption": "div#scrollableDiv > div:nth-of-type(4)",
+  "TwiOption": "div#scrollableDiv > div:nth-of-type(5)",
   "passwordField": "#password"
 },
 "otpPage":{

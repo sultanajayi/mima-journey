@@ -14,9 +14,10 @@ module.exports = defineConfig({
   e2e: {
     baseUrl:'https://staging.trymima.com/',
     defaultCommandTimeout: 10000,
-    viewportHeight: 980,
-    viewportWidth: 1020,
+    viewportHeight: 900,
+    viewportWidth: 1400,
     specPattern:  '**/*.feature',
+    watchForFileChanges: false,
     setupNodeEvents,
   },
 });

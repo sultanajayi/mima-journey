@@ -2,16 +2,43 @@ import { faker } from '@faker-js/faker'
 
 let inboxId
 let sel
+let user
 let emailAddress
 let emailBody
 let otpValue
+let newPassword = faker.person.firstName()+'Tests1@'
+let filePath = 'cypress/fixtures/credentials.json'
 before(function () {
     cy.fixture('selectors').then((data) => {
         sel = data
     })
+    cy.fixture('credentials').then((cred) => {
+        user = cred
+    })
 })
+
 Cypress.Commands.add('clickElement', (element) => {
     cy.contains(element).should('be.visible').and('exist').click()
+})
+
+Cypress.Commands.add('selectReferalOption', () => {
+    cy.get(sel.otherDetailsPage.heardAboutUs).should('be.visible').and('exist').click()
+    cy.get(sel.otherDetailsPage.InsOption).should('be.visible').and('exist').click()
+})
+
+Cypress.Commands.add('selectAReferalOption', (string) => {
+    cy.get(sel.otherDetailsPage.heardAboutUs).should('be.visible').and('exist').click()
+    switch(string){
+        case 'Facebook':
+            cy.get(sel.otherDetailsPage.FbOption).should('be.visible').and('exist').click()
+            break
+        case 'Twitter':
+            cy.get(sel.otherDetailsPage.TwiOption).should('be.visible').and('exist').click()
+            break
+        case 'Instagram':
+            cy.get(sel.otherDetailsPage.InsOption).should('be.visible').and('exist').click()
+
+    }
 })
 
 Cypress.Commands.add('typeAValue', (text_field, text_to_insert) => {
@@ -24,6 +51,13 @@ Cypress.Commands.add('insertEmail', () => {
             inboxId = inbox.id
             emailAddress = inbox.emailAddress
             cy.typeAValue(sel.basicDetailsPage.bizEmailField, emailAddress)
+            
+            const userCredentials = `{
+                "email": "${emailAddress}",
+                "password": "${newPassword}"
+            }`
+
+            cy.writeFile(filePath, userCredentials)
         })
 })
 
@@ -60,5 +94,17 @@ Cypress.Commands.add('insert', (string) => {
             break
         case 'valid business registration number':
             cy.typeAValue(sel.basicDetailsPage.bizRegNum, faker.commerce.isbn())
+            break
+        case 'valid twitter handle':
+            cy.typeAValue(sel.otherDetailsPage.TwtField, faker.company.buzzNoun())
+            break
+        case 'valid instagram handle':
+            cy.typeAValue(sel.otherDetailsPage.InsField, faker.company.buzzVerb())
+            break
+        case 'valid website name':
+            cy.typeAValue(sel.otherDetailsPage.WebField, faker.internet.domainName())
+            break
+        case 'valid password':
+            cy.typeAValue(sel.otherDetailsPage.passwordField, newPassword)
     }
 })

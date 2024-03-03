@@ -18,25 +18,8 @@ Given(/^User is on trymima page$/, () => {
 	cy.visit('/')
 });
 
-When(/^User fills in a valid website name$/, () => {
-	cy.typeAValue(sel.otherDetailsPage.WebField, faker.internet.domainName())
-});
-
-When(/^User fills in a valid instagram handle$/, () => {
-	cy.typeAValue(sel.otherDetailsPage.InsField, faker.company.buzzVerb())
-});
-
-When(/^User fills in a valid twitter handle$/, () => {
-	cy.typeAValue(sel.otherDetailsPage.TwtField, faker.company.buzzNoun())
-});
-
 When(/^User selects how they heard about mima$/, () => {
-	cy.clickElement(sel.otherDetailsPage.heardAboutUs)
-	cy.clickElement(sel.otherDetailsPage.InsOption)
-});
-
-When(/^User inserts password$/, () => {
-	cy.typeAValue(sel.otherDetailsPage.passwordField, faker.internet.password())
+	cy.selectReferalOption()
 });
 
 When(/^User clicks the SignUp Button$/, () => {
@@ -68,13 +51,20 @@ Then(/^The user should have access to the home page$/, () => {
 
 
 When(/^User fills in a "([^"]*)"$/, (args1) => {
-	cy.log(args1);
 	cy.insert(args1);
 });
 
 
 When(/^User Clicks "([^"]*)" Button$/, (args1) => {
-	cy.log(args1);
 	cy.clickElement(args1)
 });
 
+When(/^User selects "([^"]*)" as how they heard about mima$/, (args1) => {
+	cy.selectAReferalOption(args1)
+});
+
+When(/^The user should see the content of the side tabs$/, (datatable) => {
+	datatable.hashes().forEach((row) => {
+		cy.contains(row.sidebar).should('exist').and('be.visible').and('contain', row.sidebar)
+	})
+});
