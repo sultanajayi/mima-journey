@@ -24,5 +24,13 @@
 "otpPage":{
   "submitButton": "button[type='submit']",
   "otpMessage": ".Onboarding_text__center__FzKte"
+},
+"loginIcon": {
+  "loginButton": ".fvamil > .sc-imWYAI"
+},
+"loginPage":{
+  "email": "input[name='email']",
+  "password": "input[name='password']",
+  "submitButton": "button[type='submit']"
 }
 }

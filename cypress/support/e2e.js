@@ -16,6 +16,7 @@
 // Import commands.js using ES2015 syntax:
 import './commands'
 import './custom-command/common.actions.cy'
+import './custom-command/login.actions.cy'
 import 'cypress-fill-command'
 import 'cypress-mailslurp'
 
