@@ -1,16 +1,23 @@
+import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor"
+
 
 Given(/^I am on the login page$/, () => {
+	cy.visit('/');
+});
+
+When(/^I click on the login button$/, () => {
 	return true;
 });
 
-(/^I enter my email and password$/, () => {
+When(/^I enter my email and password$/, () => {
 	return true;
 });
 
-(/^I click the login button$/, () => {
+When(/^I click on the submit button$/, () => {
 	return true;
 });
 
-Then(/^I should be redirected to the dashboard page$/, () => {
+Then(/^I should be able to login$/, () => {
 	return true;
 });
+
